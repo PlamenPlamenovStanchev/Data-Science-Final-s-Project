@@ -1,26 +1,28 @@
 def categorize_injury(injury):
     """
-    Categorizes a specific injury description into broad anatomical groups.
+    Map granular injury descriptions to broad anatomical categories.
     
-    This function analyzes an injury string and maps it to a generalized category 
-    such as 'Head', 'Lower Body', or 'Upper Body' based on recognized keywords. 
-    It also handles non-injury occurrences (e.g., rest, illness) by grouping them
-    under 'Other'. If the injury is unrecognized, missing, or none of the 
-    keywords match, it defaults to returning 'Other'.
+    Consolidates diverse injury terminology from multiple sports datasets into four 
+    standardized anatomical categories:
+    - "Head": Head/neurological injuries
+    - "Upper Body": Shoulder, arm, chest, back, and related injuries
+    - "Lower Body": Knee, ankle, hip, leg, and related injuries
+    - "Other": Non-injury statuses (rest, illness) and unclassified injuries
+    
+    Uses case-insensitive keyword matching on the injury string.
     
     Args:
-        injury (str or None): The specific injury description or type.
-        
+        injury: Raw injury description (str, int, float, or None). Handles None safely.
+    
     Returns:
-        str: A broader anatomical category for the injury ('Head', 'Lower Body', 
-             'Upper Body', or 'Other').
+        str: One of four categories: "Head", "Upper Body", "Lower Body", or "Other".
     """
     if injury is None:
         return "Other"
     
     injury = str(injury).lower()
 
-    # HEAD INJURIES
+    # HEAD
     if any(word in injury for word in [
         "concussion", "head", "brain", "face", "jaw", "nose"
     ]):
@@ -29,20 +31,22 @@ def categorize_injury(injury):
     # LOWER BODY INJURIES
     elif any(word in injury for word in [
         "knee", "ankle", "foot", "toe", "leg", "hamstring",
-        "groin", "hip", "thigh", "calf", "achilles"
+        "groin", "hip", "thigh", "calf", "achilles",
+        "lower body"
     ]):
         return "Lower Body"
 
     # UPPER BODY INJURIES
     elif any(word in injury for word in [
         "shoulder", "arm", "elbow", "wrist", "hand",
-        "finger", "chest", "rib", "back", "spine"
+        "finger", "chest", "rib", "back", "spine",
+        "upper body"
     ]):
         return "Upper Body"
 
-    # NON-INJURY (e.g., rest, illness, important for NBA dataset)
+    # NON-INJURY IMPORTANT FOR NBA
     elif any(word in injury for word in [
-        "rest", "illness", "flu", "covid", "personal"
+        "rest", "illness", "flu", "covid", "personal", "dnp"
     ]):
         return "Other"
 
