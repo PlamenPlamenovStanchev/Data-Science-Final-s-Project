@@ -58,15 +58,19 @@ def clean_text(text):
 
 def extract_nba_injury_type(note):
     """
-    Parses a raw injury note and categorizes it into a standard injury type 
-    (e.g., 'knee', 'ankle', 'head').
+    Extracts the most relevant injury keyword from an NBA free-text note.
+
+    The NBA dataset stores injury information in narrative notes instead of a
+    dedicated anatomical field. This helper keeps the extracted `injury_type`
+    more informative by checking a broader set of common basketball injury terms
+    before falling back to non-injury or unknown labels.
     
     Args:
         note (str or NaN): The raw injury note/description.
         
     Returns:
-        str: A standardized injury category, or 'unknown' if missing, 
-             or 'other' if no keyword matched.
+        str: A standardized injury keyword such as 'knee', 'ankle', 'illness',
+        'rest', 'unknown', or 'other' if no keyword matched.
     """
     # Preprocess the note to ensure uniform matching
     note = clean_text(note)
@@ -75,28 +79,46 @@ def extract_nba_injury_type(note):
     if pd.isna(note):
         return "unknown"
     
-    # Categorize the injury based on specific keywords in the note
-    if "concussion" in note or "head" in note:
+    # Categorize the injury based on specific keywords in the note.
+    if any(word in note for word in ["concussion", "head", "face", "jaw", "nose", "eye"]):
         return "head"
+    elif "knee" in note or "acl" in note or "mcl" in note:
+        return "knee"
     elif "ankle" in note:
         return "ankle"
-    elif "knee" in note:
-        return "knee"
-    elif "shoulder" in note:
-        return "shoulder"
-    elif "back" in note:
-        return "back"
+    elif "foot" in note or "heel" in note or "toe" in note:
+        return "foot"
     elif "hamstring" in note:
         return "hamstring"
-    elif "foot" in note:
-        return "foot"
     elif "hip" in note:
         return "hip"
+    elif "groin" in note or "adductor" in note:
+        return "groin"
+    elif "quad" in note or "quadriceps" in note or "thigh" in note:
+        return "quad"
+    elif "calf" in note or "achilles" in note or "shin" in note:
+        return "lower leg"
+    elif "shoulder" in note:
+        return "shoulder"
+    elif "back" in note or "spine" in note or "lumbar" in note:
+        return "back"
+    elif "neck" in note:
+        return "neck"
     elif "wrist" in note:
         return "wrist"
-    elif "illness" in note or "flu" in note:
+    elif "hand" in note or "finger" in note or "thumb" in note:
+        return "hand"
+    elif "elbow" in note or "forearm" in note or "arm" in note:
+        return "arm"
+    elif "rib" in note or "chest" in note:
+        return "chest"
+    elif "abdominal" in note or "abdomen" in note or "oblique" in note or "core" in note:
+        return "core"
+    elif any(word in note for word in ["illness", "flu", "covid", "virus", "infection"]):
         return "illness"
-    elif "rest" in note:
+    elif any(word in note for word in ["rest", "personal", "load management", "dnp"]):
         return "rest"
+    elif any(word in note for word in ["unknown", "undisclosed", "not disclosed"]):
+        return "unknown"
     else:
         return "other"
