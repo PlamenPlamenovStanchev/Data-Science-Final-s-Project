@@ -1,6 +1,34 @@
 import pandas as pd
 import re
 
+
+def normalize_empty_strings(df, columns):
+    """
+    Converts empty strings in selected DataFrame columns into explicit missing values.
+
+    Text-cleaning steps can remove punctuation, numbers, or extra spaces and leave
+    behind empty strings. Pandas does not automatically treat those empty strings
+    as missing data, so this helper standardizes them as `pd.NA` before later
+    filtering, validation, or aggregation.
+
+    Args:
+        df (pd.DataFrame): Dataset that contains the columns to inspect.
+        columns (list): Column names where empty strings should be treated as missing values.
+
+    Returns:
+        pd.DataFrame: The same dataset with empty strings replaced by `pd.NA`
+        in the selected columns.
+    """
+    # Process only the columns requested by the cleaning step.
+    for col in columns:
+        # Skip missing column names so the helper can be reused across datasets.
+        if col in df.columns:
+            # Mark blank strings as true missing values for reliable dropna/isnull checks.
+            df[col] = df[col].replace("", pd.NA)
+
+    return df
+
+
 def clean_text(text):
     """
     Cleans the input text by converting to lowercase, removing non-alphabetic 
