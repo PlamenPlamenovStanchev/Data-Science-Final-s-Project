@@ -1,7 +1,20 @@
 # Data Science Final Project: Sports Injury Analysis
 
 ## Overview
-This repository contains a data science final project focused on analyzing injury data across major professional sports leagues, including MLB, NBA, NFL, and NHL. The goal of the project is to clean, process, and analyze the injury datasets to uncover trends and insights.
+This repository contains a data science final project focused on analyzing injury data across major professional sports leagues, including MLB, NBA, NFL, and NHL. The goal of the project is to clean, process, and analyze the injury datasets to uncover trends and insights.Professional sports injuries represent both a medical and analytical challenge. This project investigates how injury patterns differ across major sports leagues and explores the relationship between sport-specific mechanics and athlete risk.
+
+## Objectives
+- Compare injury patterns across leagues
+- Analyze head injury risk
+- Evaluate severity differences
+
+## Methods
+- Data cleaning and preprocessing
+- Rule-based injury categorization
+- Exploratory data analysis
+- Statistical hypothesis testing
+- Effect size analysis
+- Optional machine learning extension
 
 ## Project Structure
 
@@ -24,3 +37,13 @@ The project utilizes historical injury data collected for:
 To reproduce the analysis or explore the data:
 1. Ensure you have a standard data science Python environment installed (e.g., Anaconda or pip-managed environment with `pandas`, `jupyter`, `matplotlib`, `seaborn`).
 2. Open the `notebooks/` directory and run the notebooks in sequence.
+
+
+## Key Findings
+- Injury distributions differ across leagues
+- Head injuries are significantly higher in contact sports
+- Lower body injuries are most frequent
+
+## Optional ML Extension
+Brief description
+
