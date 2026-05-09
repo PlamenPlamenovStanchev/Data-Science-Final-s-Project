@@ -116,14 +116,14 @@ The project follows a structured data science workflow:
 .
 |-- datasets/
 |   |-- raw/
-|   |   |-- ba_injuries_2010-2020.csv
+|   |   |-- nba_injuries_2010-2020.csv
 |   |   |-- mlb_injury.csv
 |   |   |-- nfl_injuries_2009_2021.csv
 |   |   `-- nhl_injuries.csv
 |   `-- processed/
 |       `-- cleaned_injuries.csv
 |-- images/
-|   |-- ba hit.jpg
+|   |-- nba hit.jpg
 |   |-- concussion-vector-illustration-labeled-educational-post-head-trauma-scheme-concussion-vector-illustration-labeled-educational-post-156638716.webp
 |   |-- mlb pitching motion.jpg
 |   |-- nfl tackle.jpg
@@ -133,6 +133,7 @@ The project follows a structured data science workflow:
 |   |-- 02_analysis.ipynb
 |   `-- 03_ml_extension.ipynb
 |-- src/
+|   |-- __init__.py
 |   |-- data_cleaning.py
 |   |-- feature_engineering.py
 |   `-- hypothesis_testing.py
@@ -163,6 +164,9 @@ The project follows a structured data science workflow:
   - Evaluates model performance and discusses limitations.
 
 ## Source Modules
+
+- `src/__init__.py`
+  - Marks `src` as an importable helper package for the project.
 
 - `src/data_cleaning.py`
   - Provides helper functions for text cleaning, empty string normalization, and NBA injury keyword extraction.

@@ -1,3 +1,11 @@
+"""Feature-engineering helpers for standardized injury categorization.
+
+The project combines injury records from several leagues with different text
+schemas. This module centralizes the keyword lists and category-mapping logic
+used to convert heterogeneous injury descriptions into comparable analytical
+groups.
+"""
+
 import re
 
 
@@ -39,6 +47,7 @@ UPPER_BODY_KEYWORDS = [
 
 
 def _compile_keyword_pattern(keywords):
+    """Build a word-boundary regex pattern from a list of injury keywords."""
     escaped_keywords = [re.escape(keyword) for keyword in keywords]
     return re.compile(r"\b(?:" + "|".join(escaped_keywords) + r")\b")
 

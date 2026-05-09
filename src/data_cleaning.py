@@ -1,3 +1,10 @@
+"""Data-cleaning helpers for the sports injury project.
+
+This module contains reusable preprocessing functions used by the data
+preparation notebook. The helpers focus on text normalization, explicit missing
+value handling, and NBA-specific injury keyword extraction from free-text notes.
+"""
+
 import pandas as pd
 import re
 
